@@ -1,26 +1,60 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
-
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --color-bg: #f7efed;
+  --color-text: #131112;
+  --color-tag: #e6e7e6;
+  --color-accent: #9dcdc5;
+  --font-sans: var(--font-body);
+  --font-heading: var(--font-heading);
+  --font-body: var(--font-body);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+/* overflow-x: clip (not hidden) avoids the CSS spec rule that force-promotes
+   overflow-y to auto whenever overflow-x is hidden and overflow-y is visible —
+   that promotion turns html/body into nested scroll containers and breaks
+   position: sticky inside them. */
+html {
+  overflow-x: clip;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background-color: #f7efed;
+  color: #131112;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: clip;
+}
+
+/* Hides the native cursor in favor of our own ball — desktop (non-touch)
+   only. On iPad the native cursor can't be reliably suppressed anyway, so
+   CustomCursor.tsx never adds this class there and leaves it alone. */
+body.custom-cursor-active,
+body.custom-cursor-active a,
+body.custom-cursor-active button {
+  cursor: none;
+}
+
+/*
+  Permanently composite interactive elements whenever the magnet-pull hover
+  effect is active — on desktop (paired with the ball) or on a touch device
+  with an external mouse (magnet only, no ball) — so Safari never
+  promotes/demotes a layer mid-hover. Toggling will-change on hover causes
+  Safari to briefly render both the old (non-composited) and new
+  (composited) text layer, which looks like ghosted/doubled text. Keeping
+  the layer static avoids that.
+*/
+body.magnet-active a,
+body.magnet-active button,
+body.magnet-active [role="button"] {
+  -webkit-transform: translateZ(0);
+  transform: translateZ(0);
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
 }
