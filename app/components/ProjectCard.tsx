@@ -1,6 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import Reveal from "@/app/components/Reveal";
+import WordReveal from "@/app/components/WordReveal";
 import type { WorkProjectMeta } from "@/lib/work";
 
 function Tag({ label }: { label: string }) {
@@ -24,14 +25,14 @@ export default function ProjectCard({
       <div className="grid grid-cols-1 lg:grid-cols-[32.35%_1fr] gap-5">
         <Reveal delay={0} className="order-2 lg:order-1">
           <h2 className="font-[family-name:var(--font-heading)] font-bold text-[22px] md:text-[28px] lg:text-[35px] text-text leading-none">
-            {title}
+            <WordReveal text={title} delay={0} stagger={45} />
           </h2>
           <p className="mt-3 font-[family-name:var(--font-body)] font-light text-[16px] md:text-[20px] lg:text-[25px] text-text leading-normal">
-            {description}
+            <WordReveal text={description} delay={100} stagger={25} duration={550} />
           </p>
           {comingSoon ? (
             <span className="mt-4 inline-flex items-center gap-2 font-[family-name:var(--font-body)] font-light text-[16px] text-text leading-none">
-              Case study coming soon
+              <WordReveal text="Case study coming soon" delay={250} stagger={45} />
               <Image src="/images/info-circle.svg" alt="" width={24} height={24} unoptimized />
             </span>
           ) : (
@@ -39,7 +40,7 @@ export default function ProjectCard({
               href={`/work/${slug}`}
               className="mt-4 inline-flex items-center gap-2 font-[family-name:var(--font-body)] font-light text-[16px] text-text leading-none hover:opacity-60 transition-opacity"
             >
-              Check Project
+              <WordReveal text="Check Project" delay={250} stagger={45} />
               <Image src="/images/arrow-right.svg" alt="" width={13} height={13} unoptimized />
             </Link>
           )}

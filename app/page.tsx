@@ -3,6 +3,7 @@ import Navbar from "@/app/components/Navbar";
 import Footer from "@/app/components/Footer";
 import ProjectCard from "@/app/components/ProjectCard";
 import Reveal from "@/app/components/Reveal";
+import WordReveal from "@/app/components/WordReveal";
 import { getAllWorkProjects } from "@/lib/work";
 
 export default function Home() {
@@ -28,16 +29,12 @@ export default function Home() {
 
             {/* Heading + subtitle */}
             <div>
-              <Reveal delay={0}>
-                <h1 className="font-[family-name:var(--font-heading)] font-bold text-[42px] md:text-[60px] lg:text-[80px] text-text leading-[1.05]">
-                  Digital Product Designer from Vancouver
-                </h1>
-              </Reveal>
-              <Reveal delay={150}>
-                <p className="mt-5 font-[family-name:var(--font-body)] font-light text-[18px] md:text-[24px] lg:text-[30px] text-text leading-normal">
-                  Helping individuals and companies build great digital products
-                </p>
-              </Reveal>
+              <h1 className="font-[family-name:var(--font-heading)] font-bold text-[42px] md:text-[60px] lg:text-[80px] text-text leading-[1.05]">
+                <WordReveal text="Digital Product Designer from Vancouver" delay={0} />
+              </h1>
+              <p className="mt-5 font-[family-name:var(--font-body)] font-light text-[18px] md:text-[24px] lg:text-[30px] text-text leading-normal">
+                <WordReveal text="Helping individuals and companies build great digital products" delay={300} />
+              </p>
               {/* Scroll hint — mobile */}
               <Reveal delay={300} className="mt-8 flex items-center gap-2 lg:hidden">
                 <span className="font-[family-name:var(--font-body)] font-light text-[16px] text-text leading-none">

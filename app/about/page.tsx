@@ -2,6 +2,7 @@ import Image from "next/image";
 import Navbar from "@/app/components/Navbar";
 import Footer from "@/app/components/Footer";
 import Reveal from "@/app/components/Reveal";
+import WordReveal from "@/app/components/WordReveal";
 
 export const metadata = {
   title: "About — Alex Krstovic",
@@ -45,17 +46,17 @@ export default function AboutPage() {
       <main className="pt-[68px]">
         {/* Header */}
         <div className="px-5 md:px-10 pt-16 md:pt-20">
-          <Reveal delay={0}>
-            <h1 className="font-[family-name:var(--font-heading)] font-bold text-[42px] md:text-[60px] lg:text-[80px] text-text leading-[1.05]">
-              Digital Product Designer
-            </h1>
-          </Reveal>
-          <Reveal delay={150}>
-            <p className="mt-4 font-[family-name:var(--font-body)] font-light text-[18px] md:text-[24px] lg:text-[30px] text-text leading-normal max-w-[1130px]">
-              I&apos;m a product designer specializing in complex web and mobile products — UX
-              research, and UI design. I research problems and design the solutions that fit.
-            </p>
-          </Reveal>
+          <h1 className="font-[family-name:var(--font-heading)] font-bold text-[42px] md:text-[60px] lg:text-[80px] text-text leading-[1.05]">
+            <WordReveal text="Digital Product Designer" delay={0} stagger={60} />
+          </h1>
+          <p className="mt-4 font-[family-name:var(--font-body)] font-light text-[18px] md:text-[24px] lg:text-[30px] text-text leading-normal max-w-[1130px]">
+            <WordReveal
+              text="I'm a product designer specializing in complex web and mobile products — UX research, and UI design. I research problems and design the solutions that fit."
+              delay={150}
+              stagger={22}
+              duration={550}
+            />
+          </p>
         </div>
 
         {/* Photo */}
@@ -77,45 +78,44 @@ export default function AboutPage() {
         {/* More about me / Skills / Tools */}
         <div className="px-5 md:px-10 mt-16 md:mt-20 pb-20">
           <div className="grid grid-cols-1 lg:grid-cols-[210px_1fr] gap-5">
-            <Reveal delay={0}>
-              <span className="font-[family-name:var(--font-heading)] font-medium text-[20px] md:text-[22px] lg:text-[25px] text-text">
-                More about me
-              </span>
-            </Reveal>
+            <span className="font-[family-name:var(--font-heading)] font-medium text-[20px] md:text-[22px] lg:text-[25px] text-text">
+              <WordReveal text="More about me" delay={0} stagger={60} />
+            </span>
 
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-[1fr_440px] gap-5">
               {/* Bio */}
-              <Reveal
-                delay={100}
-                className="max-w-[670px] flex flex-col gap-5 font-[family-name:var(--font-body)] font-light text-[16px] md:text-[18px] lg:text-[20px] text-text leading-normal"
-              >
+              <div className="max-w-[670px] flex flex-col gap-5 font-[family-name:var(--font-body)] font-light text-[16px] md:text-[18px] lg:text-[20px] text-text leading-normal">
                 <p>
-                  I&apos;m a product designer based in Vancouver, BC. I design web and mobile
-                  applications, mostly the complicated ones: dense information, complex
-                  workflows, and users who depend on getting things right.
+                  <WordReveal
+                    text="I'm a product designer based in Vancouver, BC. I design web and mobile applications, mostly the complicated ones: dense information, complex workflows, and users who depend on getting things right."
+                    delay={100}
+                    stagger={18}
+                    duration={500}
+                  />
                 </p>
                 <p>
-                  My work covers the full process: user research, interaction design,
-                  prototyping, interface design, and design systems. I test with real users and
-                  let the data challenge my assumptions, and I prototype in working code, which
-                  keeps me close to developers and keeps the designs grounded in what can
-                  actually be built.
+                  <WordReveal
+                    text="My work covers the full process: user research, interaction design, prototyping, interface design, and design systems. I test with real users and let the data challenge my assumptions, and I prototype in working code, which keeps me close to developers and keeps the designs grounded in what can actually be built."
+                    delay={200}
+                    stagger={10}
+                    duration={500}
+                  />
                 </p>
                 <p>
-                  I&apos;ve spent eight years in design, from leading UX at a startup to running
-                  my own freelance practice. Along the way I went back to school and completed
-                  my Bachelor of Arts in Interactive Arts and Technology at Simon Fraser
-                  University, with a concentration in Interaction Design.
+                  <WordReveal
+                    text="I've spent eight years in design, from leading UX at a startup to running my own freelance practice. Along the way I went back to school and completed my Bachelor of Arts in Interactive Arts and Technology at Simon Fraser University, with a concentration in Interaction Design."
+                    delay={300}
+                    stagger={12}
+                    duration={500}
+                  />
                 </p>
-              </Reveal>
+              </div>
 
               {/* Skills + Tools + Education */}
               <div>
-                <Reveal delay={200}>
-                  <h2 className="font-[family-name:var(--font-heading)] font-medium text-[20px] md:text-[25px] text-text mb-4">
-                    Skills
-                  </h2>
-                </Reveal>
+                <h2 className="font-[family-name:var(--font-heading)] font-medium text-[20px] md:text-[25px] text-text mb-4">
+                  <WordReveal text="Skills" delay={200} />
+                </h2>
 
                 <div className="grid grid-cols-2 gap-5">
                   {/* Design / Research / Methodologies */}
@@ -137,31 +137,42 @@ export default function AboutPage() {
                   </Reveal>
 
                   {/* Tools */}
-                  <Reveal delay={300}>
+                  <div>
                     <h3 className="font-[family-name:var(--font-body)] font-semibold text-[15px] md:text-[17px] text-text mb-1">
-                      Tools
+                      <WordReveal text="Tools" delay={300} />
                     </h3>
-                    <ul className="font-[family-name:var(--font-body)] font-light text-[15px] text-text leading-relaxed">
-                      {tools.map((tool) => (
-                        <li key={tool}>{tool}</li>
-                      ))}
-                    </ul>
-                  </Reveal>
+                    <Reveal delay={340}>
+                      <ul className="font-[family-name:var(--font-body)] font-light text-[15px] text-text leading-relaxed">
+                        {tools.map((tool) => (
+                          <li key={tool}>{tool}</li>
+                        ))}
+                      </ul>
+                    </Reveal>
+                  </div>
                 </div>
 
                 {/* Education — sits below the Skills/Tools row */}
                 <Reveal delay={400} className="mt-8">
                   <div className="bg-[#efb65d] rounded-[10px] p-[10px] text-black">
                     <p className="font-[family-name:var(--font-heading)] font-medium text-[18px] md:text-[20px] mb-1">
-                      Education
+                      <WordReveal text="Education" delay={40} />
                     </p>
                     <p className="font-[family-name:var(--font-heading)] font-semibold text-[15px]">
-                      Simon Fraser University
+                      <WordReveal text="Simon Fraser University" delay={90} stagger={45} />
                     </p>
                     <p className="font-[family-name:var(--font-body)] font-light text-[15px] leading-relaxed">
-                      Bachelor of Arts, Interactive Arts and Technology
+                      <WordReveal
+                        text="Bachelor of Arts, Interactive Arts and Technology"
+                        delay={150}
+                        stagger={25}
+                        duration={500}
+                      />
                       <br />
-                      Concentration: Interaction Design
+                      <WordReveal
+                        text="Concentration: Interaction Design"
+                        delay={330}
+                        stagger={35}
+                      />
                     </p>
                   </div>
                 </Reveal>
@@ -175,7 +186,7 @@ export default function AboutPage() {
               download="Alexander Krstovic Resume.pdf"
               className="inline-flex items-center gap-2 border border-text rounded-[50px] px-5 py-3 font-[family-name:var(--font-body)] font-light text-[16px] text-text hover:opacity-60 transition-opacity"
             >
-              Download resume
+              <WordReveal text="Download resume" delay={0} stagger={60} />
             </a>
           </Reveal>
         </div>

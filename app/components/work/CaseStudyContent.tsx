@@ -7,6 +7,7 @@ import Caption from "@/app/components/work-mdx/Caption";
 import Narrow from "@/app/components/work-mdx/Narrow";
 import SectionDivider from "@/app/components/work-mdx/SectionDivider";
 import Reveal from "@/app/components/Reveal";
+import WordReveal from "@/app/components/WordReveal";
 
 const caseStudyMdxComponents = {
   h2: (props: React.HTMLAttributes<HTMLHeadingElement>) => (
@@ -75,73 +76,73 @@ export default async function CaseStudyContent({
       {/* Header */}
       <div className="px-5 md:px-10 pt-4">
         <Narrow>
-          <Reveal delay={0}>
-            <h1 className="font-[family-name:var(--font-heading)] font-bold text-[36px] md:text-[52px] lg:text-[64px] text-text leading-[1.05]">
-              {meta.title}
-            </h1>
-          </Reveal>
-          <Reveal delay={150}>
-            <p className="mt-4 font-[family-name:var(--font-body)] font-light text-[18px] md:text-[22px] lg:text-[26px] text-text leading-normal max-w-[670px]">
-              {meta.subtitle}
-            </p>
-          </Reveal>
+          <h1 className="font-[family-name:var(--font-heading)] font-bold text-[36px] md:text-[52px] lg:text-[64px] text-text leading-[1.05]">
+            <WordReveal text={meta.title} delay={0} stagger={50} />
+          </h1>
+          <p className="mt-4 font-[family-name:var(--font-body)] font-light text-[18px] md:text-[22px] lg:text-[26px] text-text leading-normal max-w-[670px]">
+            <WordReveal text={meta.subtitle} delay={150} stagger={22} duration={550} />
+          </p>
         </Narrow>
       </div>
 
       {/* Meta + content — single narrow column, with wide image breakouts */}
       <div className="px-5 md:px-10 mt-14 pb-20">
         <Narrow>
-          <Reveal delay={0} className="flex flex-col gap-5">
+          <div className="flex flex-col gap-5">
             <div>
               <h2 className="font-[family-name:var(--font-heading)] font-bold text-[18px] text-text mb-1">
-                My role
+                <WordReveal text="My role" delay={0} stagger={45} />
               </h2>
-              {meta.role.map((line) => (
+              {meta.role.map((line, i) => (
                 <p
                   key={line}
                   className="font-[family-name:var(--font-body)] font-light text-[15px] text-text leading-relaxed"
                 >
-                  {line}
+                  <WordReveal text={line} delay={40 + i * 40} stagger={25} duration={500} />
                 </p>
               ))}
             </div>
             <div>
               <h2 className="font-[family-name:var(--font-heading)] font-bold text-[18px] text-text mb-1">
-                Design Methodology
+                <WordReveal text="Design Methodology" delay={80} stagger={45} />
               </h2>
               <p className="font-[family-name:var(--font-body)] font-light text-[15px] text-text leading-relaxed">
-                {meta.methodology}
+                <WordReveal text={meta.methodology} delay={120} stagger={25} duration={500} />
               </p>
             </div>
             <div>
               <h2 className="font-[family-name:var(--font-heading)] font-bold text-[18px] text-text mb-1">
-                Research methods
+                <WordReveal text="Research methods" delay={160} stagger={45} />
               </h2>
-              <ul className="font-[family-name:var(--font-body)] font-light text-[15px] text-text leading-relaxed">
-                {meta.researchMethods.map((item) => (
-                  <li key={item}>{item}</li>
-                ))}
-              </ul>
+              <Reveal delay={200}>
+                <ul className="font-[family-name:var(--font-body)] font-light text-[15px] text-text leading-relaxed">
+                  {meta.researchMethods.map((item) => (
+                    <li key={item}>{item}</li>
+                  ))}
+                </ul>
+              </Reveal>
             </div>
             <div>
               <h2 className="font-[family-name:var(--font-heading)] font-bold text-[18px] text-text mb-1">
-                Website platform
+                <WordReveal text="Website platform" delay={240} stagger={45} />
               </h2>
               <p className="font-[family-name:var(--font-body)] font-light text-[15px] text-text leading-relaxed">
-                {meta.platform}
+                <WordReveal text={meta.platform} delay={280} stagger={25} duration={500} />
               </p>
             </div>
             <div>
               <h2 className="font-[family-name:var(--font-heading)] font-bold text-[18px] text-text mb-1">
-                Tools
+                <WordReveal text="Tools" delay={320} />
               </h2>
-              <ul className="font-[family-name:var(--font-body)] font-light text-[15px] text-text leading-relaxed">
-                {meta.tools.map((tool) => (
-                  <li key={tool}>{tool}</li>
-                ))}
-              </ul>
+              <Reveal delay={360}>
+                <ul className="font-[family-name:var(--font-body)] font-light text-[15px] text-text leading-relaxed">
+                  {meta.tools.map((tool) => (
+                    <li key={tool}>{tool}</li>
+                  ))}
+                </ul>
+              </Reveal>
             </div>
-          </Reveal>
+          </div>
         </Narrow>
 
         <SectionDivider />
