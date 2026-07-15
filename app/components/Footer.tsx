@@ -7,10 +7,10 @@ export default function Footer() {
       <div className="mt-5 font-[family-name:var(--font-body)] font-light text-[18px] md:text-[24px] lg:text-[30px] text-text leading-normal">
         <p>Shoot me an email and let&apos;s talk</p>
         <a
-          href="mailto:contact@alexkrstovic.com"
+          href="mailto:alexander.krstovic@gmail.com"
           className="inline-block underline hover:opacity-60 transition-opacity"
         >
-          contact@alexkrstovic.com
+          Email me
         </a>
       </div>
     </footer>

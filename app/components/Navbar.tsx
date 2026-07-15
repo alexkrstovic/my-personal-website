@@ -8,7 +8,7 @@ import { useEffect, useState } from "react";
 const navItems = [
   { label: "Work", href: "/" },
   { label: "About", href: "/about" },
-  { label: "Email me", href: "mailto:contact@alexkrstovic.com" },
+  { label: "Email me", href: "mailto:alexander.krstovic@gmail.com" },
 ];
 
 function isActive(pathname: string, href: string): boolean {
