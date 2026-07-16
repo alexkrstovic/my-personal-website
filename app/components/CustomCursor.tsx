@@ -4,6 +4,8 @@ import { useEffect, useRef, useState } from "react";
 import { usePathname } from "next/navigation";
 
 const INTERACTIVE_SELECTOR = "a, button, [role='button']";
+const LABEL_SELECTOR = "[data-cursor-label]";
+const HOVER_SELECTOR = `${INTERACTIVE_SELECTOR}, ${LABEL_SELECTOR}`;
 const DEFAULT_SIZE = 16;
 const HOVER_PADDING = 12;
 const MAGNET_STRENGTH = 0.35;
@@ -12,10 +14,13 @@ const MAGNET_TRANSITION = "transform 0.3s cubic-bezier(0.22, 1, 0.36, 1)";
 const MAGNET_RELEASE_MS = 350;
 const REST_OPACITY_DESKTOP = 0.7;
 const HOVER_OPACITY = 0.1;
+const LABEL_HEIGHT = 34;
+const LABEL_PADDING_X = 20;
+const LABEL_OPACITY = 0.95;
 
 type CursorState = {
   pointer: { x: number; y: number };
-  target: { x: number; y: number; w: number; h: number; r: number; opacity: number; active: boolean };
+  target: { x: number; y: number; w: number; h: number; r: number; opacity: number; active: boolean; label: string | null };
   current: { x: number; y: number; w: number; h: number; r: number; opacity: number };
   hoveredEl: HTMLElement | null;
   releaseTimers: WeakMap<HTMLElement, ReturnType<typeof setTimeout>>;
@@ -35,6 +40,7 @@ function restState(hasTouch: boolean) {
 
 export default function CustomCursor() {
   const cursorRef = useRef<HTMLDivElement>(null);
+  const labelRef = useRef<HTMLSpanElement>(null);
   const stateRef = useRef<CursorState | null>(null);
   const pathname = usePathname();
   const [mouseDetected, setMouseDetected] = useState(false);
@@ -52,7 +58,8 @@ export default function CustomCursor() {
     if (!mouseDetected) return;
 
     const cursor = cursorRef.current;
-    if (!cursor) return;
+    const label = labelRef.current;
+    if (!cursor || !label) return;
 
     const hasTouch = navigator.maxTouchPoints > 0;
     const { size: restSize, opacity: restOpacity } = restState(hasTouch);
@@ -63,12 +70,19 @@ export default function CustomCursor() {
     const pointer = { x: window.innerWidth / 2, y: window.innerHeight / 2 };
     const state: CursorState = {
       pointer,
-      target: { x: pointer.x, y: pointer.y, w: restSize, h: restSize, r: restSize / 2, opacity: restOpacity, active: false },
+      target: { x: pointer.x, y: pointer.y, w: restSize, h: restSize, r: restSize / 2, opacity: restOpacity, active: false, label: null },
       current: { x: pointer.x, y: pointer.y, w: restSize, h: restSize, r: restSize / 2, opacity: 0 },
       hoveredEl: null,
       releaseTimers: new WeakMap(),
     };
     stateRef.current = state;
+
+    function setLabel(text: string | null) {
+      if (state.target.label === text) return;
+      state.target.label = text;
+      label!.textContent = text ?? "";
+      label!.style.opacity = text ? "1" : "0";
+    }
 
     function resetTarget() {
       state.target.active = false;
@@ -76,6 +90,7 @@ export default function CustomCursor() {
       state.target.h = restSize;
       state.target.r = restSize / 2;
       state.target.opacity = restOpacity;
+      setLabel(null);
     }
 
     function applyMagnet(el: HTMLElement, clientX: number, clientY: number) {
@@ -126,8 +141,26 @@ export default function CustomCursor() {
     }
 
     function onMouseOver(e: MouseEvent) {
-      const el = (e.target as Element)?.closest?.(INTERACTIVE_SELECTOR) as HTMLElement | null;
+      const el = (e.target as Element)?.closest?.(HOVER_SELECTOR) as HTMLElement | null;
       if (!el || el.hasAttribute("data-cursor-ignore")) return;
+
+      const labelText = el.getAttribute("data-cursor-label");
+      if (labelText) {
+        // A large hover zone (e.g. a whole card) rather than a specific
+        // control — grow into a labeled pill that keeps following the
+        // pointer, instead of snapping/shape-matching to the zone's bounds.
+        // Sized to hug the text itself (not a fixed circle) so the label
+        // stays fully legible instead of spilling past a too-small ball —
+        // past its edge the label text (bg-colored) becomes invisible
+        // against the page background, which is the same color.
+        state.target.active = false;
+        setLabel(labelText);
+        state.target.w = label!.offsetWidth + LABEL_PADDING_X * 2;
+        state.target.h = LABEL_HEIGHT;
+        state.target.r = LABEL_HEIGHT / 2;
+        state.target.opacity = LABEL_OPACITY;
+        return;
+      }
 
       const rect = el.getBoundingClientRect();
       const radius = parseFloat(getComputedStyle(el).borderRadius) || 6;
@@ -138,19 +171,20 @@ export default function CustomCursor() {
       state.target.r = Math.min(radius + HOVER_PADDING / 2, state.target.h / 2);
       state.target.opacity = HOVER_OPACITY;
       state.target.active = true;
+      setLabel(null);
 
       state.hoveredEl = el;
       engageMagnet(el, pointer.x, pointer.y);
     }
 
     function onMouseOut(e: MouseEvent) {
-      const el = (e.target as Element)?.closest?.(INTERACTIVE_SELECTOR) as HTMLElement | null;
+      const el = (e.target as Element)?.closest?.(HOVER_SELECTOR) as HTMLElement | null;
       if (!el || el.hasAttribute("data-cursor-ignore")) return;
 
       resetTarget();
 
       if (state.hoveredEl === el) state.hoveredEl = null;
-      releaseMagnet(el);
+      if (!el.hasAttribute("data-cursor-label")) releaseMagnet(el);
     }
 
     const onMouseDown = () => {
@@ -217,6 +251,11 @@ export default function CustomCursor() {
     }
     state.hoveredEl = null;
     state.target.active = false;
+    state.target.label = null;
+    if (labelRef.current) {
+      labelRef.current.textContent = "";
+      labelRef.current.style.opacity = "0";
+    }
     const { size: restSize, opacity: restOpacity } = restState(navigator.maxTouchPoints > 0);
     state.target.w = restSize;
     state.target.h = restSize;
@@ -228,8 +267,14 @@ export default function CustomCursor() {
     <div
       ref={cursorRef}
       aria-hidden
-      className="fixed top-0 left-0 z-[9999] pointer-events-none bg-text opacity-0"
+      className="fixed top-0 left-0 z-[9999] pointer-events-none bg-text opacity-0 flex items-center justify-center"
       style={{ width: DEFAULT_SIZE, height: DEFAULT_SIZE, borderRadius: "50%" }}
-    />
+    >
+      <span
+        ref={labelRef}
+        className="font-[family-name:var(--font-body)] font-light text-[15px] text-bg whitespace-nowrap opacity-0"
+        style={{ transition: "opacity 0.25s ease" }}
+      />
+    </div>
   );
 }

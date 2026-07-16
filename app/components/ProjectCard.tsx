@@ -20,55 +20,69 @@ export default function ProjectCard({
   listingImage,
   comingSoon,
 }: WorkProjectMeta) {
+  const cardContent = (
+    <>
+      <Reveal delay={0} className="order-2 lg:order-1">
+        <h2 className="font-[family-name:var(--font-heading)] font-bold text-[22px] md:text-[28px] lg:text-[35px] text-text leading-none">
+          <WordReveal text={title} delay={0} stagger={45} />
+        </h2>
+        <p className="mt-3 font-[family-name:var(--font-body)] font-light text-[16px] md:text-[20px] lg:text-[25px] text-text leading-normal">
+          <WordReveal text={description} delay={100} stagger={25} duration={550} />
+        </p>
+        {comingSoon ? (
+          <span className="mt-4 inline-flex items-center gap-2 font-[family-name:var(--font-body)] font-light text-[16px] text-text leading-none">
+            <WordReveal text="Case study coming soon" delay={250} stagger={45} />
+            <Image src="/images/info-circle.svg" alt="" width={24} height={24} unoptimized />
+          </span>
+        ) : (
+          <span
+            role="button"
+            className="mt-4 inline-flex items-center gap-2 font-[family-name:var(--font-body)] font-light text-[16px] text-text leading-none hover:opacity-60 transition-opacity"
+          >
+            <WordReveal text="Check Project" delay={250} stagger={45} />
+            <Image src="/images/arrow-right.svg" alt="" width={13} height={13} unoptimized />
+          </span>
+        )}
+        <div className="mt-4 flex flex-wrap gap-2">
+          {tags.map((tag) => (
+            <Tag key={tag} label={tag} />
+          ))}
+        </div>
+      </Reveal>
+
+      <Reveal
+        delay={150}
+        className="relative w-full rounded-[20px] overflow-hidden order-1 lg:order-2"
+      >
+        {/* Below lg the image is full-width (not a 68%-width column), so
+            the 42vw clamp calibrated for that narrower column crops the
+            900x600 source hard. Use its real aspect ratio there instead. */}
+        <div className="relative w-full aspect-[3/2] lg:aspect-auto lg:h-[clamp(240px,42vw,600px)]">
+          <Image
+            src={listingImage}
+            alt={title}
+            fill
+            className="object-cover"
+            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 66vw, 900px"
+          />
+        </div>
+      </Reveal>
+    </>
+  );
+
   return (
     <article className="px-5 md:px-10">
-      <div className="grid grid-cols-1 lg:grid-cols-[32.35%_1fr] gap-5">
-        <Reveal delay={0} className="order-2 lg:order-1">
-          <h2 className="font-[family-name:var(--font-heading)] font-bold text-[22px] md:text-[28px] lg:text-[35px] text-text leading-none">
-            <WordReveal text={title} delay={0} stagger={45} />
-          </h2>
-          <p className="mt-3 font-[family-name:var(--font-body)] font-light text-[16px] md:text-[20px] lg:text-[25px] text-text leading-normal">
-            <WordReveal text={description} delay={100} stagger={25} duration={550} />
-          </p>
-          {comingSoon ? (
-            <span className="mt-4 inline-flex items-center gap-2 font-[family-name:var(--font-body)] font-light text-[16px] text-text leading-none">
-              <WordReveal text="Case study coming soon" delay={250} stagger={45} />
-              <Image src="/images/info-circle.svg" alt="" width={24} height={24} unoptimized />
-            </span>
-          ) : (
-            <Link
-              href={`/work/${slug}`}
-              className="mt-4 inline-flex items-center gap-2 font-[family-name:var(--font-body)] font-light text-[16px] text-text leading-none hover:opacity-60 transition-opacity"
-            >
-              <WordReveal text="Check Project" delay={250} stagger={45} />
-              <Image src="/images/arrow-right.svg" alt="" width={13} height={13} unoptimized />
-            </Link>
-          )}
-          <div className="mt-4 flex flex-wrap gap-2">
-            {tags.map((tag) => (
-              <Tag key={tag} label={tag} />
-            ))}
-          </div>
-        </Reveal>
-
-        <Reveal
-          delay={150}
-          className="relative w-full rounded-[20px] overflow-hidden order-1 lg:order-2"
+      {comingSoon ? (
+        <div className="grid grid-cols-1 lg:grid-cols-[32.35%_1fr] gap-5">{cardContent}</div>
+      ) : (
+        <Link
+          href={`/work/${slug}`}
+          data-cursor-label="Explore"
+          className="grid grid-cols-1 lg:grid-cols-[32.35%_1fr] gap-5"
         >
-          {/* Below lg the image is full-width (not a 68%-width column), so
-              the 42vw clamp calibrated for that narrower column crops the
-              900x600 source hard. Use its real aspect ratio there instead. */}
-          <div className="relative w-full aspect-[3/2] lg:aspect-auto lg:h-[clamp(240px,42vw,600px)]">
-            <Image
-              src={listingImage}
-              alt={title}
-              fill
-              className="object-cover"
-              sizes="(max-width: 768px) 100vw, (max-width: 1200px) 66vw, 900px"
-            />
-          </div>
-        </Reveal>
-      </div>
+          {cardContent}
+        </Link>
+      )}
     </article>
   );
 }
