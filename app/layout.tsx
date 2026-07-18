@@ -40,6 +40,22 @@ export const metadata: Metadata = {
   },
 };
 
+const personJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "Person",
+  name: "Alex Krstovic",
+  jobTitle: "Digital Product Designer",
+  url: "https://alexkrstovic.com",
+  image: "https://alexkrstovic.com/images/about-photo.jpg",
+  address: {
+    "@type": "PostalAddress",
+    addressLocality: "Vancouver",
+    addressRegion: "BC",
+    addressCountry: "CA",
+  },
+  sameAs: ["https://linkedin.com/in/alexkrstovic"],
+};
+
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -48,6 +64,12 @@ export default function RootLayout({
   return (
     <html lang="en" className={`${heading.variable} ${body.variable}`}>
       <body>
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify(personJsonLd).replace(/</g, "\\u003c"),
+          }}
+        />
         <SmoothScroll />
         <CustomCursor />
         {children}

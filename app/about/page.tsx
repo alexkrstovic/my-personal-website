@@ -69,7 +69,7 @@ export default function AboutPage() {
           <Reveal delay={0} className="relative w-full">
             <div className="relative w-full h-full" style={{ height: "clamp(280px, 43vw, 640px)" }}>
               <Image
-                src="/images/about-photo.png"
+                src="/images/about-photo.jpg"
                 alt="Alex Krstovic"
                 fill
                 className="object-cover"
