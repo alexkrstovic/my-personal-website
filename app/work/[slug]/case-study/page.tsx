@@ -20,9 +20,12 @@ export async function generateMetadata({
   const slugs = getAvailableWorkSlugs();
   if (!slugs.includes(slug)) return {};
   const meta = getWorkCaseStudyMeta(slug);
+  const title = `${meta.title} Case Study — Alex Krstovic`;
   return {
-    title: `${meta.title} Case Study — Alex Krstovic`,
+    title,
     description: meta.subtitle,
+    openGraph: { title, description: meta.subtitle, url: `/work/${slug}/case-study` },
+    twitter: { card: "summary_large_image", title, description: meta.subtitle },
   };
 }
 

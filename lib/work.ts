@@ -102,3 +102,7 @@ export function getAllWorkProjects(): WorkProjectMeta[] {
 export function getAvailableWorkSlugs(): string[] {
   return getAllWorkSlugs().filter((slug) => !getWorkProjectMeta(slug).comingSoon);
 }
+
+export function hasCaseStudy(slug: string): boolean {
+  return fs.existsSync(path.join(workDirectory, slug, "case-study.mdx"));
+}

@@ -4,10 +4,15 @@ import Footer from "@/app/components/Footer";
 import Reveal from "@/app/components/Reveal";
 import WordReveal from "@/app/components/WordReveal";
 
+const title = "About — Alex Krstovic";
+const description =
+  "Product designer based in Vancouver, BC, specializing in complex web and mobile products.";
+
 export const metadata = {
-  title: "About — Alex Krstovic",
-  description:
-    "Product designer based in Vancouver, BC, specializing in complex web and mobile products.",
+  title,
+  description,
+  openGraph: { title, description, url: "/about" },
+  twitter: { card: "summary_large_image", title, description },
 };
 
 const skillGroups = [

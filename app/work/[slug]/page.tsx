@@ -25,9 +25,12 @@ export async function generateMetadata({
   const slugs = getAvailableWorkSlugs();
   if (!slugs.includes(slug)) return {};
   const meta = getWorkProjectMeta(slug);
+  const title = `${meta.title} — Alex Krstovic`;
   return {
-    title: `${meta.title} — Alex Krstovic`,
+    title,
     description: meta.description,
+    openGraph: { title, description: meta.description, url: `/work/${slug}` },
+    twitter: { card: "summary_large_image", title, description: meta.description },
   };
 }
 
