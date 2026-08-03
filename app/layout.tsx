@@ -34,6 +34,10 @@ export const metadata: Metadata = {
   metadataBase: new URL("https://alexkrstovic.com"),
   title,
   description,
+  // Both alexkrstovic.com and www.alexkrstovic.com serve the site, which
+  // Google Search Console flags as duplicate content with no declared
+  // canonical. This tells it explicitly which host is authoritative.
+  alternates: { canonical: "/" },
   openGraph: {
     type: "website",
     url: "/",
