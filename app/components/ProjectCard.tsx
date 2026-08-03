@@ -6,7 +6,7 @@ import type { WorkProjectMeta } from "@/lib/work";
 
 function Tag({ label }: { label: string }) {
   return (
-    <span className="inline-flex items-center bg-accent rounded-[5px] px-[10px] py-[10px] font-[family-name:var(--font-body)] font-light text-[12px] leading-none text-text whitespace-nowrap">
+    <span className="inline-flex items-center bg-[rgba(217,217,217,0.65)] rounded-[5px] px-[10px] py-[10px] font-[family-name:var(--font-body)] font-light text-[12px] leading-none text-text whitespace-nowrap">
       {label}
     </span>
   );
@@ -37,9 +37,9 @@ export default function ProjectCard({
         ) : (
           <span
             role="button"
-            className="mt-4 inline-flex items-center gap-2 font-[family-name:var(--font-body)] font-light text-[16px] text-text leading-none hover:opacity-60 transition-opacity"
+            className="mt-4 inline-flex items-center gap-[6px] bg-[#efb65d] rounded-[5px] px-[10px] py-[5px] font-[family-name:var(--font-body)] font-light text-[16px] text-text leading-none hover:opacity-60 transition-opacity"
           >
-            <WordReveal text="Check Project" delay={250} stagger={45} />
+            <WordReveal text="Explore Project" delay={250} stagger={45} />
             <Image src="/images/arrow-right.svg" alt="" width={13} height={13} unoptimized />
           </span>
         )}

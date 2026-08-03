@@ -14,7 +14,8 @@ export default function Home() {
       <Navbar />
 
       {/* Hero */}
-      <section id="work" className="pt-[68px]">
+      {/* pt must match the fixed Navbar's actual rendered height (currently 95px) */}
+      <section id="work" className="pt-[95px]">
         <div className="px-5 md:px-10">
           <div className="grid grid-cols-1 lg:grid-cols-[43%_57%] items-end gap-8 pt-32 lg:pt-[374px] pb-20 md:pb-24 lg:pb-28">
             {/* Scroll hint — desktop left column */}
@@ -50,7 +51,7 @@ export default function Home() {
       </section>
 
       {/* Projects */}
-      <section className="flex flex-col gap-20 pb-20">
+      <section className="flex flex-col gap-20 pb-[200px]">
         {projects.map((project) => (
           <ProjectCard key={project.slug} {...project} />
         ))}

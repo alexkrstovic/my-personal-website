@@ -2,7 +2,7 @@ import { notFound } from "next/navigation";
 import Link from "next/link";
 import Image from "next/image";
 import { compileMDX } from "next-mdx-remote/rsc";
-import { getAvailableWorkSlugs, getWorkProjectMeta, getWorkProjectRaw } from "@/lib/work";
+import { getAvailableWorkSlugs, getWorkProjectMeta, getWorkProjectRaw, hasCaseStudy } from "@/lib/work";
 import Navbar from "@/app/components/Navbar";
 import Footer from "@/app/components/Footer";
 import Shot from "@/app/components/work-mdx/Shot";
@@ -71,9 +71,19 @@ export default async function WorkProjectPage({
     <div className="bg-bg min-h-screen">
       <Navbar />
 
-      <main className="pt-[68px]">
+      {/* pt must match the fixed Navbar's actual rendered height (currently 95px) */}
+      <main className="pt-[95px]">
         {/* Header */}
         <header className="px-5 md:px-10 pt-16 md:pt-20">
+          <Reveal delay={0} className="mb-3">
+            <Link
+              href="/"
+              className="inline-flex items-center gap-[10px] bg-[#efb65d] rounded-[5px] px-[10px] py-[5px] font-[family-name:var(--font-body)] font-light text-[16px] text-black leading-none hover:opacity-60 transition-opacity"
+            >
+              <Image src="/images/arrow-right.svg" alt="" width={13} height={13} unoptimized className="rotate-180" />
+              Back to main page
+            </Link>
+          </Reveal>
           <h1 className="font-[family-name:var(--font-heading)] font-bold text-[42px] md:text-[60px] lg:text-[80px] text-text leading-[1.05]">
             <WordReveal text={meta.title} delay={0} stagger={55} />
           </h1>
@@ -84,7 +94,7 @@ export default async function WorkProjectPage({
             {meta.tags.map((tag) => (
               <span
                 key={tag}
-                className="inline-flex items-center bg-accent rounded-[5px] px-[10px] py-[10px] font-[family-name:var(--font-body)] font-light text-[12px] leading-none text-text whitespace-nowrap"
+                className="inline-flex items-center bg-[rgba(217,217,217,0.65)] rounded-[5px] px-[10px] py-[10px] font-[family-name:var(--font-body)] font-light text-[12px] leading-none text-text whitespace-nowrap"
               >
                 {tag}
               </span>
@@ -170,19 +180,21 @@ export default async function WorkProjectPage({
             </div>
           </div>
 
-          <Reveal delay={200} className="flex justify-center mt-14 md:mt-20">
-            <Link
-              href={`/work/${slug}/case-study`}
-              className="inline-flex items-center gap-2 border border-text rounded-[50px] px-5 py-3 font-[family-name:var(--font-body)] font-light text-[18px] md:text-[20px] lg:text-[25px] text-text hover:opacity-60 transition-opacity"
-            >
-              <WordReveal text="Read the full case study" delay={0} stagger={45} />
-              <Image src="/images/expand.svg" alt="" width={24} height={24} unoptimized />
-            </Link>
-          </Reveal>
+          {hasCaseStudy(slug) && (
+            <Reveal delay={200} className="flex justify-center mt-14 md:mt-20">
+              <Link
+                href={`/work/${slug}/case-study`}
+                className="inline-flex items-center gap-2 border border-text rounded-[50px] px-5 py-3 font-[family-name:var(--font-body)] font-light text-[18px] md:text-[20px] lg:text-[25px] text-text hover:opacity-60 transition-opacity"
+              >
+                <WordReveal text="Read the full case study" delay={0} stagger={45} />
+                <Image src="/images/expand.svg" alt="" width={24} height={24} unoptimized />
+              </Link>
+            </Reveal>
+          )}
         </div>
 
         {/* Gallery */}
-        <div className="px-5 md:px-10 mt-20 md:mt-28">
+        <div className="px-5 md:px-10 mt-20 md:mt-28 mb-[200px]">
           <h2 className="font-[family-name:var(--font-heading)] font-bold text-[26px] md:text-[30px] lg:text-[35px] text-text mb-10">
             <WordReveal text="Gallery" delay={0} />
           </h2>

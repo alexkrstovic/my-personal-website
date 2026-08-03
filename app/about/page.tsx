@@ -48,7 +48,8 @@ export default function AboutPage() {
     <div className="bg-bg min-h-screen">
       <Navbar />
 
-      <main className="pt-[68px]">
+      {/* pt must match the fixed Navbar's actual rendered height (currently 95px) */}
+      <main className="pt-[95px] mb-[200px]">
         {/* Header */}
         <div className="px-5 md:px-10 pt-16 md:pt-20">
           <h1 className="font-[family-name:var(--font-heading)] font-bold text-[42px] md:text-[60px] lg:text-[80px] text-text leading-[1.05]">

@@ -86,7 +86,7 @@ export default async function CaseStudyContent({
       </div>
 
       {/* Meta + content — single narrow column, with wide image breakouts */}
-      <div className="px-5 md:px-10 mt-14 pb-20">
+      <div className="px-5 md:px-10 mt-14 mb-[200px]">
         <Narrow>
           <div className="flex flex-col gap-5">
             <div>
@@ -122,23 +122,36 @@ export default async function CaseStudyContent({
                 </ul>
               </Reveal>
             </div>
-            <div>
-              <h2 className="font-[family-name:var(--font-heading)] font-bold text-[18px] text-text mb-1">
-                <WordReveal text="Website platform" delay={240} stagger={45} />
-              </h2>
-              <p className="font-[family-name:var(--font-body)] font-light text-[15px] text-text leading-relaxed">
-                <WordReveal text={meta.platform} delay={280} stagger={25} duration={500} />
-              </p>
-            </div>
+            {meta.platform && (
+              <div>
+                <h2 className="font-[family-name:var(--font-heading)] font-bold text-[18px] text-text mb-1">
+                  <WordReveal text="Website platform" delay={240} stagger={45} />
+                </h2>
+                <p className="font-[family-name:var(--font-body)] font-light text-[15px] text-text leading-relaxed">
+                  <WordReveal text={meta.platform} delay={280} stagger={25} duration={500} />
+                </p>
+              </div>
+            )}
             <div>
               <h2 className="font-[family-name:var(--font-heading)] font-bold text-[18px] text-text mb-1">
                 <WordReveal text="Tools" delay={320} />
               </h2>
               <Reveal delay={360}>
                 <ul className="font-[family-name:var(--font-body)] font-light text-[15px] text-text leading-relaxed">
-                  {meta.tools.map((tool) => (
-                    <li key={tool}>{tool}</li>
-                  ))}
+                  {meta.tools.map((tool) =>
+                    typeof tool === "string" ? (
+                      <li key={tool}>{tool}</li>
+                    ) : (
+                      <li key={tool.label}>
+                        {tool.label}
+                        <ul className="pl-4">
+                          {tool.items.map((item) => (
+                            <li key={item}>{item}</li>
+                          ))}
+                        </ul>
+                      </li>
+                    )
+                  )}
                 </ul>
               </Reveal>
             </div>

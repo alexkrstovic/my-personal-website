@@ -1,5 +1,5 @@
 import { notFound } from "next/navigation";
-import { getAvailableWorkSlugs } from "@/lib/work";
+import { getAvailableWorkSlugs, hasCaseStudy } from "@/lib/work";
 import CaseStudyContent from "@/app/components/work/CaseStudyContent";
 import CaseStudyModalShell from "@/app/components/work/CaseStudyModalShell";
 import ModalCloseButton from "@/app/components/work/ModalCloseButton";
@@ -11,7 +11,7 @@ export default async function CaseStudyModalRoute({
 }) {
   const { slug } = await params;
   const slugs = getAvailableWorkSlugs();
-  if (!slugs.includes(slug)) notFound();
+  if (!slugs.includes(slug) || !hasCaseStudy(slug)) notFound();
 
   return (
     <CaseStudyModalShell>

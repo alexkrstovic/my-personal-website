@@ -6,19 +6,30 @@ export default function Shot({
   alt,
   caption,
   aspect = "56%",
+  rounded = true,
+  bg = true,
 }: {
   src: string;
   alt: string;
   caption?: string;
   aspect?: string;
+  // MDX JSX expression props (e.g. `rounded={false}`) don't reliably reach
+  // the component via next-mdx-remote's compiler — they're silently
+  // dropped, falling back to the default. Accepting the string "false"
+  // too (same workaround ShotRow's `cols` prop already uses) means MDX
+  // content can opt out via `rounded="false"` and have it actually work.
+  rounded?: boolean | "false";
+  bg?: boolean | "false";
 }) {
   const unoptimized = src.endsWith(".svg");
+  const isRounded = rounded !== false && rounded !== "false";
+  const hasBg = bg !== false && bg !== "false";
 
   return (
     <Reveal delay={0} className="mb-6">
       <figure>
         <div
-          className="relative w-full rounded-[20px] overflow-hidden bg-tag"
+          className={`relative w-full overflow-hidden ${isRounded ? "rounded-[20px]" : ""} ${hasBg ? "bg-tag" : ""}`}
           style={{ paddingTop: aspect }}
         >
           <Image

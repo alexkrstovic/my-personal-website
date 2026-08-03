@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Hanken_Grotesk, Plus_Jakarta_Sans } from "next/font/google";
 import SmoothScroll from "@/app/components/SmoothScroll";
 import CustomCursor from "@/app/components/CustomCursor";
@@ -21,6 +21,14 @@ const body = Plus_Jakarta_Sans({
 const title = "Alex Krstovic — Digital Product Designer";
 const description =
   "Digital Product Designer from Vancouver helping individuals and companies build great digital products.";
+
+// Declared explicitly so iOS Safari always knows the status bar/toolbar
+// tint — without this it guesses by sampling page content, and that
+// guess can get stuck on a since-removed element's color (e.g. the
+// mobile menu's green background staying after the menu closes).
+export const viewport: Viewport = {
+  themeColor: "#f7efed",
+};
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://alexkrstovic.com"),

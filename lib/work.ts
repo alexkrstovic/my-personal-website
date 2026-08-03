@@ -23,14 +23,16 @@ export type WorkProjectMeta = {
   comingSoon: boolean;
 };
 
+export type WorkCaseStudyTool = string | { label: string; items: string[] };
+
 export type WorkCaseStudyMeta = {
   title: string;
   subtitle: string;
   role: string[];
   methodology: string;
   researchMethods: string[];
-  platform: string;
-  tools: string[];
+  platform?: string;
+  tools: WorkCaseStudyTool[];
   teamMembers: string[];
 };
 
@@ -80,7 +82,7 @@ export function getWorkCaseStudyMeta(slug: string): WorkCaseStudyMeta {
     role: data.role ?? [],
     methodology: data.methodology ?? "",
     researchMethods: data.researchMethods ?? [],
-    platform: data.platform ?? "",
+    platform: data.platform,
     tools: data.tools ?? [],
     teamMembers: data.teamMembers ?? [],
   };
