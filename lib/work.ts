@@ -18,6 +18,8 @@ export type WorkProjectMeta = {
   whatIDidSummary: string;
   whatIDid: string[];
   impact: string[];
+  impactLabel: string;
+  note?: string;
   timeline: string;
   order: number;
   comingSoon: boolean;
@@ -28,12 +30,14 @@ export type WorkCaseStudyTool = string | { label: string; items: string[] };
 export type WorkCaseStudyMeta = {
   title: string;
   subtitle: string;
+  description?: string;
   role: string[];
-  methodology: string;
+  teamMembers: string[];
+  timeline?: string;
+  methodology?: string;
   researchMethods: string[];
   platform?: string;
   tools: WorkCaseStudyTool[];
-  teamMembers: string[];
 };
 
 export function getAllWorkSlugs(): string[] {
@@ -61,6 +65,8 @@ export function getWorkProjectMeta(slug: string): WorkProjectMeta {
     whatIDidSummary: data.whatIDidSummary ?? "",
     whatIDid: data.whatIDid ?? [],
     impact: data.impact ?? [],
+    impactLabel: data.impactLabel ?? "Impact",
+    note: data.note,
     timeline: data.timeline ?? "",
     order: data.order ?? 0,
     comingSoon: data.comingSoon ?? false,
@@ -79,12 +85,14 @@ export function getWorkCaseStudyMeta(slug: string): WorkCaseStudyMeta {
   return {
     title: data.title ?? slug,
     subtitle: data.subtitle ?? "",
+    description: data.description,
     role: data.role ?? [],
-    methodology: data.methodology ?? "",
+    teamMembers: data.teamMembers ?? [],
+    timeline: data.timeline,
+    methodology: data.methodology,
     researchMethods: data.researchMethods ?? [],
     platform: data.platform,
     tools: data.tools ?? [],
-    teamMembers: data.teamMembers ?? [],
   };
 }
 

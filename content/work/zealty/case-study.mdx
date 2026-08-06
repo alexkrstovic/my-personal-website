@@ -1,0 +1,121 @@
+---
+title: "Zealty vs REW"
+subtitle: "A Comparative Usability Study"
+description: "Benchmarking Zealty.ca's map interface against a direct competitor to find out where the design breaks down for real users, novice and expert alike"
+role:
+  - "Project manager and lead researcher. Designed the study's task protocol and questionnaires, ran all statistical analysis, and was one of the members who conducted the heuristic evaluation. Comparative usability sessions were moderated by teammates."
+teamMembers:
+  - "Alexander Krstovic"
+  - "Srivithun Geetha Vinu"
+  - "Sadra Almasi"
+  - "Min Jang"
+  - "Baseer Joya"
+timeline: "2025"
+---
+
+## Overview
+
+Zealty.ca packs more property data into its map interface than almost any other platform in the Vancouver real estate market. Filters, pricing history, days-on-market, agent commission info, it's all there. The question we wanted to answer was whether that density was helping users or working against them. We ran Zealty's map interface through a full usability evaluation, benchmarked directly against REW.ca, a competitor most realtors already know, across two user groups: licensed real estate experts and first-time home buyers.
+
+## What we set out to test
+
+An initial heuristic inspection flagged violations of two heuristics in particular, Aesthetic and Minimalist Design and Recognition Rather Than Recall, which shaped three hypotheses:
+
+- **Efficiency:** Zealty's information density would result in significantly longer task times than REW, across all users.
+- **Satisfaction:** Zealty would score significantly lower than the industry SUS benchmark.
+- **Effectiveness:** Novices would make more errors on Zealty due to complexity, but experts would perform comparably across both platforms.
+
+<Narrow>
+<Shot
+  src="/images/work/zealty/case-study/research-goals.png"
+  alt="Research goals: measure efficiency, effectiveness, satisfaction, and compare performance between platforms and user groups"
+  aspect="52.6%"
+/>
+</Narrow>
+
+## Methodology
+
+Two phases. First, a heuristic evaluation of Zealty against Nielsen's 10 heuristics, to establish a baseline before touching real users. Second, comparative usability testing with 16 participants: 8 real estate experts (licensed realtors familiar with professional tools like Paragon and AutoProp) and 8 novice home buyers. Platform was within-subjects, everyone completed identical tasks on both Zealty and REW, and expertise was between-subjects. Task order was counterbalanced to control for learning effects, and we piloted the protocol with a realtor before running full sessions.
+
+Four tasks, in order of increasing complexity: find a specific address, check whether a listing has a given amenity, navigate the map and estimate a listing count in a target area, and apply a multi-criteria filter (bedrooms, bathrooms, build year, pet policy).
+
+<Narrow>
+<Shot
+  src="/images/work/zealty/case-study/research-hypotheses.png"
+  alt="Three research hypotheses: efficiency (time on task), satisfaction (SUS scores), and effectiveness (error rates)"
+  aspect="52.6%"
+/>
+</Narrow>
+
+## Results
+
+**Efficiency - time on task**
+
+Zealty took longer across nearly every task. Task 2 is worth a brief note: novices were technically slower on Zealty there too (25.2s vs 11.3s, p = 0.029), but the gap was small next to the other tasks, so it doesn't carry much weight on its own.
+
+The real story is Tasks 3 and 4:
+
+- **Task 3 (navigate & sort):** novices took 71.9s on Zealty vs 33.5s on REW (p = 0.006). Experts took 99.5s vs 60.7s, a large gap but not statistically reliable (p = 0.139).
+- **Task 4 (complex filtering):** novices took 149.0s vs 89.3s (p = 0.010). Experts took 161.2s vs 58.6s, the single most significant result in the study (p = 0.0001).
+
+One result cuts against the density-always-costs-time story: on Task 1 (address search), experts were actually a little faster on Zealty (54.7s) than REW (78.4s), though not significantly (p = 0.174). Worth keeping in the case study honestly rather than smoothing it over.
+
+<TaskStatsTable group="novice" />
+
+<TaskStatsTable group="expert" />
+
+**Effectiveness - error rates**
+
+This is where the study's most interesting finding shows up, and where I want to correct something. The original report's summary table listed experts making "10x" more errors on Zealty during filtering. That number came from a copy-paste error, REW's Task 3 error rate got reused in the Task 4 row. The actual figure, from the raw data, is that experts made 4.6x more errors on Zealty during filtering (4.0 vs 0.875) and 4.7x more during navigation (1.75 vs 0.375). Still a strong, real finding, just not the one originally reported.
+
+What's notable is who made those errors. Experts, not novices, had the elevated error rates. They came in with ingrained habits from professional tools and REW's more conventional patterns, and those habits produced real mistakes on Zealty. Novices made similar numbers of overt errors on both platforms, their difficulty showed up as hesitation and repeated double-checking instead, which the time-on-task data captures better than an error count does.
+
+**Satisfaction - System Usability Scale**
+
+Both gaps are statistically significant (novices p = 0.001, experts p = 0.014). The expert score sits right at the professional-software threshold rather than below it, meaning experts rate Zealty like a typical professional tool, not a broken one. Novices rate it well below even that lower bar.
+
+<SusGradeTable />
+
+## What was actually wrong with the interface
+
+The heuristic evaluation and the qualitative feedback point to four recurring problems:
+
+- **Information density and visual overload.** The interface shows everything at once with no prioritization. Participants across both groups described it as "cluttered," "busy," and "overwhelming." One expert put it plainly: "There's too much information going on." This was the heuristic evaluation's most frequent violation (Aesthetic and Minimalist Design) and the root cause behind most of the other three problems.
+- **Wrong assumptions about expert users.** Experts expected Zealty to follow the same conventions as the professional tools they use daily. It doesn't. Non-standard icons, an inconsistent building-amenity icon that changes color between the map and detail views, and unlabeled buttons all forced experts to re-learn things they expected to already know. That mismatch, not unfamiliarity, is what drove the error rate up.
+- **Novice-specific barriers.** Novices weren't making mistakes so much as they were stuck verifying. Real estate jargon like "MLS®" appeared with no explanation. One novice, asked to find a specific address, said flatly: "I don't know where to look."
+- **Filter system bottlenecks.** Task 4 produced the largest performance gap in the study for a reason: filters were hard to locate, provided no confirmation when applied, and in one case used red highlighting for a selected filter, a color users read as an error. A recurring complaint was the lack of a "clear all" control, meaning any exploratory filtering came at a real cost.
+
+## Recommendations
+
+<RecommendationBlock
+  number="1"
+  title="Reduce Visual Overload"
+  intro="Zealty currently presents a large amount of information simultaneously, which overwhelms both novice and expert users and slows decision-making."
+  goal="Improve readability, reduce cognitive load, and help users form a clearer mental model of the interface."
+  actions="Reduce visual clutter by preventing overlapping elements like listing cards, simplifying the visual hierarchy, grouping related UI controls, and organizing listing previews to avoid obstruction."
+  expectedImpact="A cleaner, more structured interface lowers cognitive effort, speeds up scanning, and boosts user confidence, directly improving performance across basic navigation and search tasks."
+  image="/images/work/zealty/case-study/recommendation-1.png"
+  imageAlt="Zealty.ca map search interface showing overlapping listing markers and dense information"
+/>
+
+<RecommendationBlock
+  number="2"
+  title="Improve Interaction Consistency"
+  intro="Zealty's interaction patterns often deviate from real-estate industry norms. This creates friction for novices and causes experts to make errors due to mismatched expectations."
+  goal="Make interface behaviors predictable, stable, and aligned with established real-estate platforms."
+  actions="Ensure navigation remains in the same browser tab, standardize icons and labels (e.g., Sold, Active) to match industry conventions, and enforce predictable patterns for all interactive elements."
+  expectedImpact="Predictable, industry-aligned interactions reduce expert errors, lower cognitive load for novices, and build trust and confidence in the platform's usability."
+  image="/images/work/zealty/case-study/recommendation-2.png"
+  imageAlt="Zealty.ca map search interface showing the Surrey area with dense listing markers"
+/>
+
+<RecommendationBlock
+  number="3"
+  title="Improve Filter Discoverability"
+  intro="Filtering was the largest performance gap in the study, especially for expert users. Many users, both novices and experts, struggled to locate, interpret, and trust filter options, which led to significantly longer task times and repeated backtracking."
+  goal="Help users quickly locate filters, understand what they do, and feel confident that the system applied them correctly."
+  actions='Organize filters into defined sections and rename unclear terms like "Total Area" to "Sq Ft." Visually highlight active filters and provide explicit feedback to confirm updates.'
+  expectedImpactList="Faster filtering workflows|Fewer errors caused by misinterpretation|Greater user confidence and trust in the platform|Direct reduction in Task 4 completion times, especially for experts"
+  image="/images/work/zealty/case-study/recommendation-3.png"
+  imageAlt="Zealty.ca search filters panel showing property type, pricing, and feature filter options"
+/>

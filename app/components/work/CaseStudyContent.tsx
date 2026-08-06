@@ -6,6 +6,9 @@ import ShotRow from "@/app/components/work-mdx/ShotRow";
 import Caption from "@/app/components/work-mdx/Caption";
 import Narrow from "@/app/components/work-mdx/Narrow";
 import SectionDivider from "@/app/components/work-mdx/SectionDivider";
+import TaskStatsTable from "@/app/components/work-mdx/TaskStatsTable";
+import SusGradeTable from "@/app/components/work-mdx/SusGradeTable";
+import RecommendationBlock from "@/app/components/work-mdx/RecommendationBlock";
 import Reveal from "@/app/components/Reveal";
 import WordReveal from "@/app/components/WordReveal";
 
@@ -51,6 +54,9 @@ const caseStudyMdxComponents = {
   Caption,
   Narrow,
   Divider: SectionDivider,
+  TaskStatsTable,
+  SusGradeTable,
+  RecommendationBlock,
 };
 
 export default async function CaseStudyContent({
@@ -82,6 +88,11 @@ export default async function CaseStudyContent({
           <p className="mt-4 font-[family-name:var(--font-body)] font-light text-[18px] md:text-[22px] lg:text-[26px] text-text leading-normal max-w-[670px]">
             <WordReveal text={meta.subtitle} delay={150} stagger={22} duration={550} />
           </p>
+          {meta.description && (
+            <p className="mt-3 font-[family-name:var(--font-body)] font-light text-[16px] md:text-[18px] text-text leading-normal max-w-[670px]">
+              <WordReveal text={meta.description} delay={220} stagger={15} duration={500} />
+            </p>
+          )}
         </Narrow>
       </div>
 
@@ -102,26 +113,54 @@ export default async function CaseStudyContent({
                 </p>
               ))}
             </div>
-            <div>
-              <h2 className="font-[family-name:var(--font-heading)] font-bold text-[18px] text-text mb-1">
-                <WordReveal text="Design Methodology" delay={80} stagger={45} />
-              </h2>
-              <p className="font-[family-name:var(--font-body)] font-light text-[15px] text-text leading-relaxed">
-                <WordReveal text={meta.methodology} delay={120} stagger={25} duration={500} />
-              </p>
-            </div>
-            <div>
-              <h2 className="font-[family-name:var(--font-heading)] font-bold text-[18px] text-text mb-1">
-                <WordReveal text="Research methods" delay={160} stagger={45} />
-              </h2>
-              <Reveal delay={200}>
-                <ul className="font-[family-name:var(--font-body)] font-light text-[15px] text-text leading-relaxed">
-                  {meta.researchMethods.map((item) => (
-                    <li key={item}>{item}</li>
-                  ))}
-                </ul>
-              </Reveal>
-            </div>
+            {meta.teamMembers.length > 0 && (
+              <div>
+                <h2 className="font-[family-name:var(--font-heading)] font-bold text-[18px] text-text mb-1">
+                  <WordReveal text="Team" delay={40} stagger={45} />
+                </h2>
+                <Reveal delay={80}>
+                  <ul className="list-disc pl-4 font-[family-name:var(--font-body)] font-light text-[15px] text-text leading-relaxed">
+                    {meta.teamMembers.map((name) => (
+                      <li key={name}>{name}</li>
+                    ))}
+                  </ul>
+                </Reveal>
+              </div>
+            )}
+            {meta.timeline && (
+              <div>
+                <h2 className="font-[family-name:var(--font-heading)] font-bold text-[18px] text-text mb-1">
+                  <WordReveal text="Timeline" delay={100} stagger={45} />
+                </h2>
+                <p className="font-[family-name:var(--font-body)] font-light text-[15px] text-text leading-relaxed">
+                  <WordReveal text={meta.timeline} delay={140} stagger={25} duration={500} />
+                </p>
+              </div>
+            )}
+            {meta.methodology && (
+              <div>
+                <h2 className="font-[family-name:var(--font-heading)] font-bold text-[18px] text-text mb-1">
+                  <WordReveal text="Design Methodology" delay={80} stagger={45} />
+                </h2>
+                <p className="font-[family-name:var(--font-body)] font-light text-[15px] text-text leading-relaxed">
+                  <WordReveal text={meta.methodology} delay={120} stagger={25} duration={500} />
+                </p>
+              </div>
+            )}
+            {meta.researchMethods.length > 0 && (
+              <div>
+                <h2 className="font-[family-name:var(--font-heading)] font-bold text-[18px] text-text mb-1">
+                  <WordReveal text="Research methods" delay={160} stagger={45} />
+                </h2>
+                <Reveal delay={200}>
+                  <ul className="font-[family-name:var(--font-body)] font-light text-[15px] text-text leading-relaxed">
+                    {meta.researchMethods.map((item) => (
+                      <li key={item}>{item}</li>
+                    ))}
+                  </ul>
+                </Reveal>
+              </div>
+            )}
             {meta.platform && (
               <div>
                 <h2 className="font-[family-name:var(--font-heading)] font-bold text-[18px] text-text mb-1">
@@ -132,6 +171,7 @@ export default async function CaseStudyContent({
                 </p>
               </div>
             )}
+            {meta.tools.length > 0 && (
             <div>
               <h2 className="font-[family-name:var(--font-heading)] font-bold text-[18px] text-text mb-1">
                 <WordReveal text="Tools" delay={320} />
@@ -155,6 +195,7 @@ export default async function CaseStudyContent({
                 </ul>
               </Reveal>
             </div>
+            )}
           </div>
         </Narrow>
 

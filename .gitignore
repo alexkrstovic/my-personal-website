@@ -39,3 +39,6 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# raw research data — not meant to be publicly downloadable
+/public/*.xlsx

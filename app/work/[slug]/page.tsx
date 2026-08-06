@@ -8,6 +8,9 @@ import Footer from "@/app/components/Footer";
 import Shot from "@/app/components/work-mdx/Shot";
 import ShotRow from "@/app/components/work-mdx/ShotRow";
 import TextCol from "@/app/components/work-mdx/TextCol";
+import SusChart from "@/app/components/work-mdx/SusChart";
+import TaskTimeChart from "@/app/components/work-mdx/TaskTimeChart";
+import ErrorsChart from "@/app/components/work-mdx/ErrorsChart";
 import Reveal from "@/app/components/Reveal";
 import WordReveal from "@/app/components/WordReveal";
 import type { Metadata } from "next";
@@ -48,6 +51,9 @@ const projectMdxComponents = {
   Shot,
   ShotRow,
   TextCol,
+  SusChart,
+  TaskTimeChart,
+  ErrorsChart,
 };
 
 export default async function WorkProjectPage({
@@ -150,7 +156,7 @@ export default async function WorkProjectPage({
 
               <div>
                 <h2 className="font-[family-name:var(--font-heading)] font-bold text-[18px] md:text-[20px] text-text mb-2">
-                  <WordReveal text="Impact" delay={160} />
+                  <WordReveal text={meta.impactLabel} delay={160} />
                 </h2>
                 <Reveal delay={220}>
                   <ul className="list-disc pl-5 space-y-1 font-[family-name:var(--font-body)] font-light text-[15px] md:text-[17px] text-text leading-tight">
@@ -178,6 +184,16 @@ export default async function WorkProjectPage({
               <p className="font-[family-name:var(--font-body)] font-light text-[18px] md:text-[22px] lg:text-[30px] text-text leading-normal">
                 <WordReveal text={meta.introText} delay={280} stagger={22} duration={550} />
               </p>
+              {meta.note && (
+                <div className="mt-8">
+                  <h2 className="font-[family-name:var(--font-heading)] font-bold text-[18px] md:text-[20px] text-text mb-2">
+                    <WordReveal text="Note" delay={320} />
+                  </h2>
+                  <p className="font-[family-name:var(--font-body)] font-light text-[15px] md:text-[17px] text-text leading-tight">
+                    <WordReveal text={meta.note} delay={360} stagger={15} duration={500} />
+                  </p>
+                </div>
+              )}
             </div>
           </div>
 
