@@ -34,9 +34,10 @@ export const metadata: Metadata = {
   metadataBase: new URL("https://alexkrstovic.com"),
   title,
   description,
-  // Both alexkrstovic.com and www.alexkrstovic.com serve the site, which
-  // Google Search Console flags as duplicate content with no declared
-  // canonical. This tells it explicitly which host is authoritative.
+  // www.alexkrstovic.com 308s to the apex host at the Vercel domain level,
+  // so only one host serves the site. These self-referencing canonicals are
+  // the belt to that redirect's braces: they keep the authoritative URL
+  // unambiguous for any crawler that reaches a page by another route.
   alternates: { canonical: "/" },
   openGraph: {
     type: "website",
