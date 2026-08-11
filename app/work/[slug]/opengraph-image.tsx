@@ -5,6 +5,11 @@ export const alt = "Alex Krstovic — Work";
 export const size = ogImageSize;
 export const contentType = "image/png";
 
+// Without this, an unknown slug is rendered on demand and getWorkProjectMeta
+// throws ENOENT on the missing .mdx — a 500 where the sibling page routes
+// return a clean 404. false limits this route to the slugs below.
+export const dynamicParams = false;
+
 export async function generateStaticParams() {
   return getAvailableWorkSlugs().map((slug) => ({ slug }));
 }
