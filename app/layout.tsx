@@ -1,5 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import { Hanken_Grotesk, Plus_Jakarta_Sans } from "next/font/google";
+import { Analytics } from "@vercel/analytics/next";
 import SmoothScroll from "@/app/components/SmoothScroll";
 import CustomCursor from "@/app/components/CustomCursor";
 import "./globals.css";
@@ -86,6 +87,7 @@ export default function RootLayout({
         <SmoothScroll />
         <CustomCursor />
         {children}
+        <Analytics />
       </body>
     </html>
   );
