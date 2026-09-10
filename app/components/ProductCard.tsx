@@ -40,7 +40,7 @@ export default function ProductCard({
             </div>
           )}
           {logoImage && (
-            <div className="absolute left-10 top-7 h-[57px] w-[170px]">
+            <div className="absolute left-5 top-4 h-[34px] w-[100px] md:left-10 md:top-7 md:h-[57px] md:w-[170px]">
               <Image src={logoImage} alt={`${name} logo`} fill className="object-contain object-left" unoptimized />
             </div>
           )}
