@@ -12,6 +12,7 @@ export type PersonalProduct = {
   link: string;
   logoImage?: string;
   videoSrc?: string;
+  videoPoster?: string;
 };
 
 export const personalProducts: PersonalProduct[] = [
@@ -22,6 +23,7 @@ export const personalProducts: PersonalProduct[] = [
     tags: ["SaaS", "Web application", "IOS", "Android", "Branding"],
     link: "https://myfriendly.app",
     videoSrc: "/images/products/friendly/friendly-hero-video.mp4",
+    videoPoster: "/images/products/friendly/friendly-hero-poster.jpg",
     logoImage: "/images/products/friendly/friendly-logo.svg",
   },
 ];

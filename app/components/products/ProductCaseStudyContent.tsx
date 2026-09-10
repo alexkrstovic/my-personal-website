@@ -30,7 +30,9 @@ const productMdxComponents = {
 export default async function ProductCaseStudyContent({ slug }: { slug: string }) {
   const meta = getProductCaseStudyMeta(slug);
   const raw = getProductCaseStudyRaw(slug);
-  const heroVideoSrc = personalProducts.find((p) => p.slug === slug)?.videoSrc;
+  const heroProduct = personalProducts.find((p) => p.slug === slug);
+  const heroVideoSrc = heroProduct?.videoSrc;
+  const heroVideoPoster = heroProduct?.videoPoster;
 
   const { content } = await compileMDX({
     source: raw,
@@ -67,10 +69,12 @@ export default async function ProductCaseStudyContent({ slug }: { slug: string }
             {heroVideoSrc ? (
               <video
                 src={heroVideoSrc}
+                poster={heroVideoPoster}
                 autoPlay
                 loop
                 muted
                 playsInline
+                preload="auto"
                 className="absolute inset-0 size-full object-cover"
               />
             ) : (

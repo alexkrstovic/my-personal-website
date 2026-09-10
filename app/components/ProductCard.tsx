@@ -13,6 +13,7 @@ export default function ProductCard({
   link,
   logoImage,
   videoSrc,
+  videoPoster,
   hasCaseStudy,
 }: PersonalProduct & { hasCaseStudy: boolean }) {
   const cardContent = (
@@ -25,10 +26,12 @@ export default function ProductCard({
           {videoSrc ? (
             <video
               src={videoSrc}
+              poster={videoPoster}
               autoPlay
               loop
               muted
               playsInline
+              preload="auto"
               className="absolute inset-0 size-full object-cover"
             />
           ) : (

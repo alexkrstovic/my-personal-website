@@ -11,6 +11,7 @@ export default function Shot({
   video = false,
   shadow = false,
   inset = false,
+  poster,
 }: {
   // Optional so a not-yet-supplied video slot can render a placeholder
   // instead of a broken image/video tag.
@@ -18,6 +19,8 @@ export default function Shot({
   alt: string;
   caption?: string;
   aspect?: string;
+  // Shown immediately while the video downloads, instead of a blank frame.
+  poster?: string;
   // MDX JSX expression props (e.g. `rounded={false}`) don't reliably reach
   // the component via next-mdx-remote's compiler — they're silently
   // dropped, falling back to the default. Accepting the string "false"
@@ -51,10 +54,12 @@ export default function Shot({
   ) : isVideo ? (
     <video
       src={src}
+      poster={poster}
       autoPlay
       loop
       muted
       playsInline
+      preload="auto"
       className={`absolute inset-0 size-full ${objectFit}`}
     />
   ) : (
