@@ -4,7 +4,7 @@ import Reveal from "@/app/components/Reveal";
 import WordReveal from "@/app/components/WordReveal";
 import type { WorkProjectMeta } from "@/lib/work";
 
-function Tag({ label }: { label: string }) {
+export function Tag({ label }: { label: string }) {
   return (
     <span className="inline-flex items-center bg-[rgba(217,217,217,0.65)] rounded-[5px] px-[10px] py-[10px] font-[family-name:var(--font-body)] font-light text-[12px] leading-none text-text whitespace-nowrap">
       {label}
