@@ -5,9 +5,11 @@ import ProjectCard from "@/app/components/ProjectCard";
 import Reveal from "@/app/components/Reveal";
 import WordReveal from "@/app/components/WordReveal";
 import { getAllWorkProjects } from "@/lib/work";
+import { personalProducts } from "@/lib/products";
 
 export default function Home() {
   const projects = getAllWorkProjects();
+  const friendly = personalProducts.find((p) => p.slug === "friendly");
 
   return (
     <div className="bg-bg min-h-screen">
@@ -19,7 +21,7 @@ export default function Home() {
         <div className="px-5 md:px-10">
           <div className="grid grid-cols-1 lg:grid-cols-[43%_57%] items-end gap-8 pt-32 lg:pt-[374px] pb-20 md:pb-24 lg:pb-28">
             {/* Scroll hint — desktop left column */}
-            <Reveal delay={450} className="hidden lg:flex items-center gap-2 self-end pb-1">
+            <Reveal delay={0} className="hidden lg:flex items-center gap-2 self-end pb-1 lg:pl-[115px]">
               <span className="font-[family-name:var(--font-body)] font-light text-[16px] text-text leading-none">
                 Scroll for featured work
               </span>
@@ -52,6 +54,20 @@ export default function Home() {
 
       {/* Projects */}
       <section className="flex flex-col gap-20 pb-[200px]">
+        {friendly && (
+          <ProjectCard
+            slug={friendly.slug}
+            title={friendly.name}
+            description={friendly.description}
+            tags={friendly.tags}
+            listingImage=""
+            comingSoon={false}
+            href="/my-products"
+            ctaLabel="Explore personal projects"
+            videoSrc={friendly.videoSrc}
+            videoPoster={friendly.videoPoster}
+          />
+        )}
         {projects.map((project) => (
           <ProjectCard key={project.slug} {...project} />
         ))}

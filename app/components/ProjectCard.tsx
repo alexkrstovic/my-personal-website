@@ -19,7 +19,16 @@ export default function ProjectCard({
   tags,
   listingImage,
   comingSoon,
-}: WorkProjectMeta) {
+  href,
+  ctaLabel = "Explore Project",
+  videoSrc,
+  videoPoster,
+}: Pick<WorkProjectMeta, "slug" | "title" | "description" | "tags" | "listingImage" | "comingSoon"> & {
+  href?: string;
+  ctaLabel?: string;
+  videoSrc?: string;
+  videoPoster?: string;
+}) {
   const cardContent = (
     <>
       <Reveal delay={0} className="order-2 lg:order-1">
@@ -29,6 +38,11 @@ export default function ProjectCard({
         <p className="mt-3 font-[family-name:var(--font-body)] font-light text-[16px] md:text-[20px] lg:text-[25px] text-text leading-normal">
           <WordReveal text={description} delay={100} stagger={25} duration={550} />
         </p>
+        <div className="mt-4 flex flex-wrap gap-2">
+          {tags.map((tag) => (
+            <Tag key={tag} label={tag} />
+          ))}
+        </div>
         {comingSoon ? (
           <span className="mt-4 inline-flex items-center gap-2 font-[family-name:var(--font-body)] font-light text-[16px] text-text leading-none">
             <WordReveal text="Case study coming soon" delay={250} stagger={45} />
@@ -39,15 +53,10 @@ export default function ProjectCard({
             role="button"
             className="mt-4 inline-flex items-center gap-[6px] bg-[#efb65d] rounded-[5px] px-[10px] py-[5px] font-[family-name:var(--font-body)] font-light text-[16px] text-text leading-none hover:opacity-60 transition-opacity"
           >
-            <WordReveal text="Explore Project" delay={250} stagger={45} />
+            <WordReveal text={ctaLabel} delay={250} stagger={45} />
             <Image src="/images/arrow-right.svg" alt="" width={13} height={13} unoptimized />
           </span>
         )}
-        <div className="mt-4 flex flex-wrap gap-2">
-          {tags.map((tag) => (
-            <Tag key={tag} label={tag} />
-          ))}
-        </div>
       </Reveal>
 
       <Reveal
@@ -58,13 +67,28 @@ export default function ProjectCard({
             the 42vw clamp calibrated for that narrower column crops the
             900x600 source hard. Use its real aspect ratio there instead. */}
         <div className="relative w-full aspect-[3/2] lg:aspect-auto lg:h-[clamp(240px,42vw,600px)]">
-          <Image
-            src={listingImage}
-            alt={title}
-            fill
-            className="object-cover"
-            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 66vw, 900px"
-          />
+          {videoSrc ? (
+            <video
+              src={videoSrc}
+              poster={videoPoster}
+              autoPlay
+              loop
+              muted
+              playsInline
+              preload="auto"
+              className="absolute inset-0 size-full rounded-[20px] border-[0.25px] border-black object-cover"
+            />
+          ) : listingImage ? (
+            <Image
+              src={listingImage}
+              alt={title}
+              fill
+              className="object-cover"
+              sizes="(max-width: 768px) 100vw, (max-width: 1200px) 66vw, 900px"
+            />
+          ) : (
+            <div className="absolute inset-0 rounded-[20px] border-[0.25px] border-black" />
+          )}
         </div>
       </Reveal>
     </>
@@ -76,7 +100,7 @@ export default function ProjectCard({
         <div className="grid grid-cols-1 lg:grid-cols-[32.35%_1fr] gap-5">{cardContent}</div>
       ) : (
         <Link
-          href={`/work/${slug}`}
+          href={href ?? `/work/${slug}`}
           data-cursor-label="Explore"
           className="grid grid-cols-1 lg:grid-cols-[32.35%_1fr] gap-5"
         >
