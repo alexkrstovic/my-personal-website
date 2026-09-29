@@ -8,11 +8,6 @@ import type { NextConfig } from "next";
 // need per-request nonces and would break the site the moment one was missed.
 // frame-ancestors is the one directive that costs nothing to set correctly.
 const securityHeaders = [
-  // Stop other sites embedding this one in an iframe (clickjacking).
-  // frame-ancestors is the modern directive; X-Frame-Options covers browsers
-  // that predate it.
-  { key: "Content-Security-Policy", value: "frame-ancestors 'none'" },
-  { key: "X-Frame-Options", value: "DENY" },
   // Trust the declared Content-Type instead of sniffing the bytes, so an
   // upload that looks like markup can't be re-interpreted as HTML.
   { key: "X-Content-Type-Options", value: "nosniff" },
@@ -23,13 +18,36 @@ const securityHeaders = [
   { key: "Permissions-Policy", value: "camera=(), microphone=(), geolocation=()" },
 ];
 
+// Stop other sites embedding this one in an iframe (clickjacking).
+// frame-ancestors is the modern directive; X-Frame-Options covers browsers
+// that predate it.
+const noFraming = [
+  { key: "Content-Security-Policy", value: "frame-ancestors 'none'" },
+  { key: "X-Frame-Options", value: "DENY" },
+];
+
+// The one exception: /studio-preview is the frame the Studio's Preview tab
+// shows a draft in, so the site must be able to embed it in itself. 'self'
+// still refuses every other site.
+const sameOriginFraming = [
+  { key: "Content-Security-Policy", value: "frame-ancestors 'self'" },
+  { key: "X-Frame-Options", value: "SAMEORIGIN" },
+];
+
 const nextConfig: NextConfig = {
   /* config options here */
   // Lets the dev server be reached from other devices on the same WiFi
   // (e.g. testing on an iPad/phone via the "Network" URL Next.js prints).
   allowedDevOrigins: ["192.168.1.70"],
+  images: {
+    remotePatterns: [{ protocol: "https", hostname: "cdn.sanity.io" }],
+  },
   headers() {
-    return [{ source: "/:path*", headers: securityHeaders }];
+    return [
+      { source: "/:path*", headers: securityHeaders },
+      { source: "/:path((?!studio-preview).*)", headers: noFraming },
+      { source: "/studio-preview", headers: sameOriginFraming },
+    ];
   },
 };
 

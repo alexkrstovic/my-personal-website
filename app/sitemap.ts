@@ -1,10 +1,12 @@
 import type { MetadataRoute } from "next";
 import { getAvailableWorkSlugs, hasCaseStudy } from "@/lib/work";
+import { getAllJournalPosts } from "@/lib/journal";
 
 const BASE_URL = "https://alexkrstovic.com";
 
-export default function sitemap(): MetadataRoute.Sitemap {
+export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const slugs = getAvailableWorkSlugs();
+  const posts = await getAllJournalPosts();
 
   const workPages: MetadataRoute.Sitemap = slugs.flatMap((slug) => {
     const pages: MetadataRoute.Sitemap = [
@@ -24,6 +26,13 @@ export default function sitemap(): MetadataRoute.Sitemap {
     return pages;
   });
 
+  const journalPages: MetadataRoute.Sitemap = posts.map((post) => ({
+    url: `${BASE_URL}/journal/${post.slug}`,
+    lastModified: post.publishedAt,
+    changeFrequency: "monthly",
+    priority: 0.6,
+  }));
+
   return [
     {
       url: BASE_URL,
@@ -35,6 +44,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
       changeFrequency: "monthly",
       priority: 0.9,
     },
+    {
+      url: `${BASE_URL}/journal`,
+      changeFrequency: "weekly",
+      priority: 0.8,
+    },
     ...workPages,
+    ...journalPages,
   ];
 }

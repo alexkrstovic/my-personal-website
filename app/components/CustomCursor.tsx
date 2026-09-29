@@ -54,8 +54,12 @@ export default function CustomCursor() {
     return () => window.removeEventListener("pointermove", onPointerMove);
   }, [mouseDetected]);
 
+  // The embedded Sanity Studio at /studio needs its native cursor and
+  // click handling untouched to be usable as an editor.
+  const isStudio = pathname.startsWith("/studio");
+
   useEffect(() => {
-    if (!mouseDetected) return;
+    if (!mouseDetected || isStudio) return;
 
     const cursor = cursorRef.current;
     const label = labelRef.current;

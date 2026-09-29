@@ -9,7 +9,13 @@ export default function SmoothScroll() {
   const pathname = usePathname();
   const previousPathnameRef = useRef(pathname);
 
+  // The embedded Sanity Studio at /studio manages its own scroll containers
+  // and interactions — Lenis hijacking the wheel there breaks the editor.
+  const isStudio = pathname.startsWith("/studio");
+
   useEffect(() => {
+    if (isStudio) return;
+
     const lenis = new Lenis({
       duration: 1.1,
       easing: (t: number) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
@@ -45,6 +51,7 @@ export default function SmoothScroll() {
   useEffect(() => {
     const previousPathname = previousPathnameRef.current;
     previousPathnameRef.current = pathname;
+    if (isStudio) return;
     const isCaseStudyTransition =
       pathname.endsWith("/case-study") || previousPathname.endsWith("/case-study");
     if (isCaseStudyTransition) return;
