@@ -5,15 +5,8 @@ import { Tag } from "@/app/components/ProjectCard";
 import JournalBody from "@/app/components/journal/JournalBody";
 import { urlForImage } from "@/lib/sanity/image";
 import { focusToObjectPosition } from "@/lib/journal-focus";
+import { formatPostDate } from "@/lib/journal-date";
 import type { JournalPost } from "@/lib/journal";
-
-function formatDate(iso: string) {
-  return new Date(iso).toLocaleDateString("en-US", {
-    year: "numeric",
-    month: "long",
-    day: "numeric",
-  });
-}
 
 // The one place a journal post's layout is defined, so the public page and
 // the Studio preview can't drift apart.
@@ -28,7 +21,7 @@ export default function JournalArticle({
     <div className="px-5 md:px-10 lg:px-[40px] pt-[40px]">
       <div className="max-w-[900px] mx-auto">
         <p className="font-[family-name:var(--font-body)] font-light text-[14px] text-text/60 leading-none">
-          <WordReveal text={formatDate(post.publishedAt)} delay={0} stagger={35} />
+          <WordReveal text={formatPostDate(post.publishedAt)} delay={0} stagger={35} />
         </p>
         <h1 className="mt-3 font-[family-name:var(--font-heading)] font-bold text-[36px] md:text-[52px] text-black leading-[1.05]">
           <WordReveal text={post.title} delay={40} stagger={50} />

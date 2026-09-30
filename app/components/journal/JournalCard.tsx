@@ -5,15 +5,8 @@ import WordReveal from "@/app/components/WordReveal";
 import { Tag } from "@/app/components/ProjectCard";
 import { urlForImage } from "@/lib/sanity/image";
 import { focusToObjectPosition } from "@/lib/journal-focus";
+import { formatPostDate } from "@/lib/journal-date";
 import type { JournalPostMeta } from "@/lib/journal";
-
-function formatDate(iso: string) {
-  return new Date(iso).toLocaleDateString("en-US", {
-    year: "numeric",
-    month: "long",
-    day: "numeric",
-  });
-}
 
 export default function JournalCard({
   title,
@@ -37,7 +30,7 @@ export default function JournalCard({
       >
         <Reveal delay={0} className={hasCover ? "order-2 lg:order-1" : "max-w-[900px]"}>
           <p className="font-[family-name:var(--font-body)] font-light text-[14px] text-text/60 leading-none">
-            <WordReveal text={formatDate(publishedAt)} delay={0} stagger={35} />
+            <WordReveal text={formatPostDate(publishedAt)} delay={0} stagger={35} />
           </p>
           <h2 className="mt-2 font-[family-name:var(--font-heading)] font-bold text-[22px] md:text-[28px] lg:text-[35px] text-text leading-none">
             <WordReveal text={title} delay={40} stagger={45} />
