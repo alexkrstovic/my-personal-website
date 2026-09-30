@@ -44,10 +44,10 @@ export default async function ProductCaseStudyContent({ slug }: { slug: string }
     <>
       {/* Header */}
       <div className="px-5 md:px-10 lg:px-[40px] pt-4 text-center">
-        <h1 className="font-[family-name:var(--font-heading)] font-bold text-[36px] md:text-[52px] lg:text-[80px] text-black leading-[1.05]">
+        <h1 className="font-[family-name:var(--font-heading)] font-bold text-[42px] md:text-[60px] lg:text-[80px] text-black leading-[1.05]">
           <WordReveal text={meta.title} delay={0} stagger={50} />
         </h1>
-        <p className="mt-4 mx-auto font-[family-name:var(--font-body)] font-light text-[18px] md:text-[22px] lg:text-[30px] text-black leading-normal max-w-[670px]">
+        <p className="mt-4 mx-auto font-[family-name:var(--font-body)] font-light text-[18px] md:text-[24px] lg:text-[30px] text-black leading-normal max-w-[670px]">
           <WordReveal text={meta.subtitle} delay={150} stagger={22} duration={550} />
         </p>
         {meta.tags.length > 0 && (
@@ -89,36 +89,36 @@ export default async function ProductCaseStudyContent({ slug }: { slug: string }
       {/* Meta + content — single narrow column, with wide image breakouts */}
       <div className="px-5 md:px-10 lg:px-[40px] mt-14 mb-[200px]">
         <div className="max-w-[1360px] mx-auto">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-x-10 gap-y-8">
-            <div className="order-2 md:order-none flex flex-col gap-5">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-x-10 gap-y-8">
+            <div className="order-2 lg:order-none flex flex-col gap-5">
               <div>
-                <h2 className="font-[family-name:var(--font-heading)] font-bold text-[25px] text-black mb-1">
+                <h2 className="font-[family-name:var(--font-heading)] font-bold text-[18px] md:text-[20px] text-black mb-1">
                   <WordReveal text="Product type" delay={0} stagger={45} />
                 </h2>
-                <p className="font-[family-name:var(--font-body)] font-light text-[17px] text-black leading-relaxed">
+                <p className="font-[family-name:var(--font-body)] font-light text-[15px] md:text-[17px] text-black leading-relaxed">
                   <WordReveal text={meta.productType} delay={40} stagger={25} duration={500} />
                 </p>
               </div>
               <div>
-                <h2 className="font-[family-name:var(--font-heading)] font-bold text-[25px] text-black mb-1">
+                <h2 className="font-[family-name:var(--font-heading)] font-bold text-[18px] md:text-[20px] text-black mb-1">
                   <WordReveal text="Design methodology" delay={40} stagger={45} />
                 </h2>
-                <p className="font-[family-name:var(--font-body)] font-light text-[17px] text-black leading-relaxed">
+                <p className="font-[family-name:var(--font-body)] font-light text-[15px] md:text-[17px] text-black leading-relaxed">
                   <WordReveal text={meta.designMethodology} delay={80} stagger={25} duration={500} />
                 </p>
               </div>
               {meta.technologies.length > 0 && (
                 <div>
-                  <h2 className="font-[family-name:var(--font-heading)] font-bold text-[25px] text-black mb-2">
+                  <h2 className="font-[family-name:var(--font-heading)] font-bold text-[18px] md:text-[20px] text-black mb-2">
                     <WordReveal text="Technologies used" delay={80} stagger={45} />
                   </h2>
                   <div className="flex flex-col gap-3">
                     {meta.technologies.map((group) => (
                       <Reveal key={group.label} delay={0}>
-                        <h3 className="font-[family-name:var(--font-heading)] text-[20px] text-black">
+                        <h3 className="font-[family-name:var(--font-heading)] text-[16px] md:text-[18px] text-black">
                           {group.label}
                         </h3>
-                        <ul className="list-disc pl-[25.5px] font-[family-name:var(--font-body)] font-light text-[17px] text-black leading-relaxed">
+                        <ul className="list-disc pl-[25.5px] font-[family-name:var(--font-body)] font-light text-[15px] md:text-[17px] text-black leading-relaxed">
                           {group.items.map((item) => (
                             <li key={item}>{item}</li>
                           ))}
@@ -129,26 +129,26 @@ export default async function ProductCaseStudyContent({ slug }: { slug: string }
                 </div>
               )}
               <div>
-                <h2 className="font-[family-name:var(--font-heading)] font-bold text-[25px] text-black mb-1">
+                <h2 className="font-[family-name:var(--font-heading)] font-bold text-[18px] md:text-[20px] text-black mb-1">
                   <WordReveal text="Current phase" delay={120} stagger={45} />
                 </h2>
-                <p className="font-[family-name:var(--font-body)] font-light text-[17px] text-black leading-relaxed">
+                <p className="font-[family-name:var(--font-body)] font-light text-[15px] md:text-[17px] text-black leading-relaxed">
                   <WordReveal text={meta.currentPhase} delay={160} stagger={25} duration={500} />
                 </p>
               </div>
               <div>
-                <h2 className="font-[family-name:var(--font-heading)] font-bold text-[25px] text-black mb-1">
+                <h2 className="font-[family-name:var(--font-heading)] font-bold text-[18px] md:text-[20px] text-black mb-1">
                   <WordReveal text="Next step" delay={160} stagger={45} />
                 </h2>
-                <p className="font-[family-name:var(--font-body)] font-light text-[17px] text-black leading-relaxed">
+                <p className="font-[family-name:var(--font-body)] font-light text-[15px] md:text-[17px] text-black leading-relaxed">
                   <WordReveal text={meta.nextStep} delay={200} stagger={25} duration={500} />
                 </p>
               </div>
             </div>
 
             {meta.productLink && (
-              <div className="order-1 md:order-none">
-                <h2 className="font-[family-name:var(--font-heading)] font-bold text-[35px] text-black mb-1">
+              <div className="order-1 lg:order-none">
+                <h2 className="font-[family-name:var(--font-heading)] font-bold text-[22px] md:text-[28px] lg:text-[35px] text-black mb-1">
                   <WordReveal text="Product" delay={0} stagger={45} />
                 </h2>
                 <Reveal delay={40}>
@@ -156,21 +156,21 @@ export default async function ProductCaseStudyContent({ slug }: { slug: string }
                     href={meta.productLink}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="inline-flex items-center gap-2 font-[family-name:var(--font-body)] font-light text-[30px] text-black underline decoration-from-font hover:opacity-60 transition-opacity"
+                    className="inline-flex items-center gap-2 font-[family-name:var(--font-body)] font-light text-[22px] md:text-[26px] lg:text-[30px] text-black underline decoration-from-font hover:opacity-60 transition-opacity"
                   >
                     {meta.productLink.replace(/^https?:\/\//, "")}
-                    <Image src="/images/link-external.svg" alt="" width={24} height={24} unoptimized />
+                    <Image src="/images/link-external.svg" alt="" width={24} height={24} unoptimized className="size-[18px] md:size-5 lg:size-6" />
                   </a>
                 </Reveal>
 
                 {meta.synopsis.length > 0 && (
                   <div className="mt-5">
-                    <h2 className="font-[family-name:var(--font-heading)] font-bold text-[35px] text-black mb-1">
+                    <h2 className="font-[family-name:var(--font-heading)] font-bold text-[22px] md:text-[28px] lg:text-[35px] text-black mb-1">
                       <WordReveal text="Product synopsis" delay={40} stagger={45} />
                     </h2>
                     {meta.synopsis.map((paragraph, i) => (
                       <Reveal key={i} delay={i * 60}>
-                        <p className="mt-3 font-[family-name:var(--font-body)] font-light text-[25px] text-black leading-relaxed">
+                        <p className="mt-3 font-[family-name:var(--font-body)] font-light text-[18px] md:text-[22px] lg:text-[25px] text-black leading-relaxed">
                           {paragraph}
                         </p>
                       </Reveal>

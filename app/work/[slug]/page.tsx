@@ -181,7 +181,7 @@ export default async function WorkProjectPage({
               <h2 className="font-[family-name:var(--font-heading)] font-bold text-[22px] md:text-[28px] lg:text-[35px] text-text leading-none mb-4">
                 <WordReveal text={meta.tagline} delay={150} stagger={45} />
               </h2>
-              <p className="font-[family-name:var(--font-body)] font-light text-[18px] md:text-[22px] lg:text-[30px] text-text leading-normal">
+              <p className="font-[family-name:var(--font-body)] font-light text-[18px] md:text-[22px] lg:text-[25px] text-text leading-normal">
                 <WordReveal text={meta.introText} delay={280} stagger={22} duration={550} />
               </p>
               {meta.note && (
