@@ -13,10 +13,10 @@ const focusList = focusOptions.map(({ title, value }) => ({ title, value }));
 const bodyBlock = {
   type: "block",
   // Setting styles replaces Sanity's defaults, so they're listed in full
-  // (same set as before) with the drop cap paragraph added at the end.
+  // (minus Heading 1, since the post title is already the page's H1 and a
+  // second one hurts search rankings) with the drop cap paragraph added.
   styles: [
     { title: "Normal", value: "normal" },
-    { title: "Heading 1", value: "h1" },
     { title: "Heading 2", value: "h2" },
     { title: "Heading 3", value: "h3" },
     { title: "Heading 4", value: "h4" },
@@ -68,6 +68,14 @@ export default defineType({
   name: "post",
   title: "Journal Post",
   type: "document",
+  fieldsets: [
+    {
+      name: "seo",
+      title: "Search & sharing (optional)",
+      description: "How this post looks in Google results and when a link to it is shared. Everything here can stay empty.",
+      options: { collapsible: true, collapsed: true },
+    },
+  ],
   fields: [
     defineField({
       name: "title",
@@ -137,6 +145,33 @@ export default defineType({
       type: "datetime",
       initialValue: () => new Date().toISOString(),
       validation: (rule) => rule.required(),
+    }),
+    defineField({
+      name: "seoTitle",
+      title: "Search title",
+      description:
+        "Leave empty to use the post title. \u201c \u2014 Alex Krstovic\u201d is added automatically. Google shows roughly the first 45 characters.",
+      type: "string",
+      fieldset: "seo",
+      validation: (rule) => rule.max(45).warning("Longer than ~45 characters, so Google may cut it off"),
+    }),
+    defineField({
+      name: "seoDescription",
+      title: "Search description",
+      description: "Leave empty to use the subtitle. Google shows roughly the first 155 characters.",
+      type: "text",
+      rows: 3,
+      fieldset: "seo",
+      validation: (rule) => rule.max(160).warning("Longer than ~160 characters, so Google may cut it off"),
+    }),
+    defineField({
+      name: "seoImage",
+      title: "Share image",
+      description:
+        "The picture shown when a link to this post is shared (LinkedIn, X, Slack, iMessage\u2026). Best at 1200 \u00d7 630. Leave empty for an automatic card with the post title.",
+      type: "image",
+      options: { hotspot: true },
+      fieldset: "seo",
     }),
     defineField({
       name: "body",

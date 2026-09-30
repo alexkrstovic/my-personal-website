@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-img-element -- share images are drawn by Satori, not the browser, so next/image doesn't apply */
 import { ImageResponse } from "next/og";
 
 export const ogImageSize = { width: 1200, height: 630 };
@@ -26,6 +27,22 @@ export function renderOgImage(title: string, subtitle: string) {
           {subtitle}
         </div>
       </div>
+    ),
+    { ...ogImageSize }
+  );
+}
+
+// A share image the writer picked themselves: just their picture, filling the card.
+export function renderPhotoOgImage(imageUrl: string) {
+  return new ImageResponse(
+    (
+      <img
+        src={imageUrl}
+        alt=""
+        width={ogImageSize.width}
+        height={ogImageSize.height}
+        style={{ width: "100%", height: "100%", objectFit: "cover" }}
+      />
     ),
     { ...ogImageSize }
   );

@@ -3,12 +3,19 @@ import Footer from "@/app/components/Footer";
 import WordReveal from "@/app/components/WordReveal";
 import JournalCard from "@/app/components/journal/JournalCard";
 import { getAllJournalPosts } from "@/lib/journal";
+import { JOURNAL_TITLE as title, JOURNAL_DESCRIPTION as description } from "@/lib/journal-seo";
 import type { Metadata } from "next";
 
+// The share image comes from ./opengraph-image.tsx.
 export const metadata: Metadata = {
-  title: "Journal — Alex Krstovic",
-  description: "Writing on design, research, and building things.",
-  alternates: { canonical: "/journal" },
+  title,
+  description,
+  alternates: {
+    canonical: "/journal",
+    types: { "application/rss+xml": [{ url: "/journal/feed.xml", title }] },
+  },
+  openGraph: { type: "website", title, description, url: "/journal", siteName: "Alex Krstovic" },
+  twitter: { card: "summary_large_image", title, description },
 };
 
 export const revalidate = 60;
